@@ -1,8 +1,5 @@
 package org.example;
 
-import lombok.Data;
-
-@Data
 public class Car {
 
     public void start() {

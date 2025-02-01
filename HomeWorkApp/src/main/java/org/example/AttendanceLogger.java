@@ -13,7 +13,7 @@ public class AttendanceLogger {
     }
 
     // Метод для регистрации нового посещения
-    public void registerVisit(String userId, String timestamp) {
+    public void registerVisit(String userId) {
         visitLog.add(new VisitRecord(userId, timestamp));
     }
 

@@ -6,9 +6,6 @@ import java.util.List;
 public class Box<T extends Fruit> {
     private final List<T> fruits = new ArrayList<>();
 
-    public Box() {
-        this.fruits = new ArrayList<>();
-    }
 
     // Метод для добавления фрукта в коробку
     public void add(T fruit) {

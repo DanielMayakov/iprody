@@ -17,7 +17,7 @@ public class CoffeeOrderBoard {
     }
 
     // Метод выдачи ближайшего заказа (первый в очереди)
-    public Order deliver() {
+    public Optional<Order> deliver() {
         if (orders.isEmpty()) {
             System.out.println("Очередь пуста!");
             return null;

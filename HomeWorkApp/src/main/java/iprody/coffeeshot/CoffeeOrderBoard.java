@@ -4,7 +4,7 @@ import java.util.*;
 
 public class CoffeeOrderBoard {
     private final List<Order> orders; // Список текущих заказов
-    private int nextOrderNumber; // Следующий номер заказа
+    private int nextOrderNumber = 1; // Следующий номер заказа
 
     public CoffeeOrderBoard() {
         this.orders = new ArrayList<>();

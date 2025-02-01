@@ -8,7 +8,6 @@ public class CoffeeOrderBoard {
 
     public CoffeeOrderBoard() {
         this.orders = new ArrayList<>();
-        this.nextOrderNumber = 1; // Начинаем с 1
     }
 
     // Метод добавления нового заказа

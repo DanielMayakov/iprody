@@ -14,24 +14,34 @@ public class PetrolStation {
 
     // Метод для заправки
     public void doTank(double amount) {
+        lock.writeLock().lock(); // Захватываем write-lock для операции записи
         try {
-            semaphore.acquire(); // Захватываем семафор
-            synchronized (this) { // Синхронизируем доступ к топливу
-                if (fuelAmount >= amount) {
-                    System.out.println(Thread.currentThread().getName() + " is refueling " + amount + " liters...");
-                    fuelAmount -= amount;
-                    System.out.println(Thread.currentThread().getName() + " finished refueling. Remaining fuel: " + fuelAmount + " liters.");
-                } else {
-                    System.out.println(Thread.currentThread().getName() + " tried to refuel " + amount + " liters, but not enough fuel is available.");
-                }
+            if (fuelAmount >= amount) {
+                System.out.println(Thread.currentThread().getName() + " is refueling " + amount + " liters...");
+                fuelAmount -= amount;
+                System.out.println(Thread.currentThread().getName() + " finished refueling. Remaining fuel: " + fuelAmount + " liters.");
+            } else {
+                System.out.println(Thread.currentThread().getName() + " tried to refuel " + amount + " liters, but not enough fuel is available.");
             }
-            // Симулируем время заправки от 3 до 10 секунд
+        } finally {
+            lock.writeLock().unlock(); // Освобождаем write-lock
+        }
+
+        // Симулируем время заправки от 3 до 10 секунд
+        try {
             Thread.sleep(ThreadLocalRandom.current().nextInt(3000, 10000));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println(Thread.currentThread().getName() + " was interrupted.");
+        }
+    }
+
+    public double getFuelAmount() {
+        lock.readLock().lock(); // Захватываем read-lock для операции чтения
+        try {
+            return fuelAmount;
         } finally {
-            semaphore.release(); // Освобождаем семафор
+            lock.readLock().unlock(); // Освобождаем read-lock
         }
     }
 }

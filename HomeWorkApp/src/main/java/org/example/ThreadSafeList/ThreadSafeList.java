@@ -7,11 +7,14 @@ public class ThreadSafeList<T> {
     private final List<T> list = new ArrayList<>(); // Основная коллекция
 
     // Метод для добавления элемента
-    public synchronized void add(T element) {
-        list.add(element);
-        System.out.println(Thread.currentThread().getName() + " added: " + element);
+    public List<T> getList() {
+        lock.lock();
+        try {
+            return new ArrayList<>(list); // Возвращаем копию списка для безопасности
+        } finally {
+            lock.unlock();
+        }
     }
-
     // Метод для удаления элемента
     public synchronized void remove(T element) {
         if (list.remove(element)) {
